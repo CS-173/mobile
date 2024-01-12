@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 class GasStation {
   String stationName;
@@ -57,4 +58,11 @@ class Fuel {
       fuelAvailable: fuelData['fuelAvailable'] ?? false,
     );
   }
+}
+
+class GasStationCircle {
+  final GasStation gasStation;
+  final Circle gasStationCircle;
+
+  GasStationCircle({required this.gasStation, required this.gasStationCircle});
 }
