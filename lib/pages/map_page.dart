@@ -27,6 +27,7 @@ class _MapPageState extends State<MapPage> {
   late bool _serviceEnabled;
   late PermissionStatus _permissionGranted;
   late LocationData? currentLocation;
+  bool _isLoaded = false;
 
   // for firestore
   List<GasStationCircle> gasStations = [];
@@ -44,24 +45,26 @@ class _MapPageState extends State<MapPage> {
           return GasStationCircle(gasStation: gasStation,  gasStationCircle: Circle("GasStationCircle", CircleOptions(
             geometry: LatLng(gasStation.stationLocation.latitude, gasStation.stationLocation.longitude),
             circleColor: "#2697FF",
-            circleRadius: 7.0,
-            circleOpacity: 0.5,
+            circleRadius: 5.0,
+            circleOpacity: 1
             ))
           );
         }).toList();
       });
-      updateMap();
+
+      if(_isLoaded) {
+        updateMap();
+      }
     });
   }
 
   void updateMap() {
-    // _mapController.clearCircles();
-    
     for (GasStationCircle gasStation in gasStations) {
       if (inMapStations.any((element) => element.gasStation.stationId == gasStation.gasStation.stationId)) {
         GasStationCircle circleToUpdate = inMapStations.firstWhere((circle) => circle.gasStation.stationId == gasStation.gasStation.stationId);
         _mapController.updateCircle(circleToUpdate.gasStationCircle, CircleOptions(
-          geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude)
+          geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude),
+          circleOpacity: gasStation.gasStation.isOpen?10:0,
         ));
       } else {
         _mapController.addCircle(gasStation.gasStationCircle.options).then((value) {
@@ -127,6 +130,11 @@ class _MapPageState extends State<MapPage> {
               geometry: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
             )
         );
+
+        setState(() {
+          _isLoaded = true;
+        });
+        updateMap();
       }
     } catch (e) {
       print("Error getting location: $e");
@@ -155,17 +163,31 @@ class _MapPageState extends State<MapPage> {
           children: [
             Expanded(
               flex: 3,
-              child: MapboxMap(
-                accessToken: accessToken,
-                initialCameraPosition: const CameraPosition(
-                  target: initialCameraPosition,
-                  zoom: zoom
-                ),
-                onMapCreated: _onMapCreated,
-                onStyleLoadedCallback: _onMapStyleLoaded,
-                styleString: mapStyle,
-                rotateGesturesEnabled: false,
-                tiltGesturesEnabled: false,
+              child: Stack(
+                children: [
+                  MapboxMap(
+                    accessToken: accessToken,
+                    initialCameraPosition: const CameraPosition(
+                        target: initialCameraPosition,
+                        zoom: zoom
+                    ),
+                    onMapCreated: _onMapCreated,
+                    onStyleLoadedCallback: _onMapStyleLoaded,
+                    styleString: mapStyle,
+                    rotateGesturesEnabled: false,
+                    tiltGesturesEnabled: false,
+                  ),
+
+                  if(!_isLoaded)
+                    Center(
+                    child: CircularProgressIndicator(),
+                  ),
+
+                  if(!_isLoaded)
+                    Container(
+                      color: Colors.black45,
+                    )
+                ],
               ),
             ),
             Expanded(
