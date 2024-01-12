@@ -1,6 +1,6 @@
 # mobile
 
-Gas Tracker Mobile App
+Gas Tracker App
 
 ## Getting Started
 

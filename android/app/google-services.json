@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "139051420055",
+    "project_id": "gas-tracker-ddd8b",
+    "storage_bucket": "gas-tracker-ddd8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139051420055:android:a0ceab683b0b7658e49cd2",
+        "android_client_info": {
+          "package_name": "com.example.gas_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4aWlirDAUUVNL4h9cckJnWoFy9QE_hdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139051420055:android:fc6c3ea5fc550a76e49cd2",
+        "android_client_info": {
+          "package_name": "com.example.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4aWlirDAUUVNL4h9cckJnWoFy9QE_hdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
