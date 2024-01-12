@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:mobile/services/mapbox.dart';
 
+import '../components/gas_station_info.dart';
 import '../models/gas_station_model.dart';
 import '../style/constants.dart';
 
@@ -29,6 +30,9 @@ class _MapPageState extends State<MapPage> {
 
   // for firestore
   List<GasStationCircle> gasStations = [];
+  List<GasStationCircle> inMapStations = [];
+
+  GasStation? selectedGasStation;
 
   void listenToGasStations() {
     gasStationSubscription = gasStationCollection
@@ -42,7 +46,7 @@ class _MapPageState extends State<MapPage> {
             circleColor: "#2697FF",
             circleRadius: 7.0,
             circleOpacity: 0.5,
-          ))
+            ))
           );
         }).toList();
       });
@@ -51,11 +55,19 @@ class _MapPageState extends State<MapPage> {
   }
 
   void updateMap() {
-    _mapController.clearCircles();
-
-    // Add red circles for each emergency
+    // _mapController.clearCircles();
+    
     for (GasStationCircle gasStation in gasStations) {
-      _mapController.addCircle(gasStation.gasStationCircle.options);
+      if (inMapStations.any((element) => element.gasStation.stationId == gasStation.gasStation.stationId)) {
+        GasStationCircle circleToUpdate = inMapStations.firstWhere((circle) => circle.gasStation.stationId == gasStation.gasStation.stationId);
+        _mapController.updateCircle(circleToUpdate.gasStationCircle, CircleOptions(
+          geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude)
+        ));
+      } else {
+        _mapController.addCircle(gasStation.gasStationCircle.options).then((value) {
+          inMapStations.add(GasStationCircle(gasStation: gasStation.gasStation, gasStationCircle: value));
+        });
+      }
     }
   }
 
@@ -162,25 +174,9 @@ class _MapPageState extends State<MapPage> {
                 width: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.all(Constants.defaultPadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        gasStations[0].gasStation.stationName,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20
-                        ),
-                      ),
-                      Text(
-                        gasStations[0].gasStation.isOpen?"Open":"Closed",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),
-                      )
-                    ],
-                  ),
+                  child: selectedGasStation != null
+                    ? GasStationInfo(gasStations: gasStations)
+                    : Center(child: CircularProgressIndicator()),
                 ),
               )
             )

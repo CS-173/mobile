@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 class GasStation {
+  String stationId;
   String stationName;
   GeoPoint stationLocation;
   bool isOpen;
@@ -10,6 +11,7 @@ class GasStation {
   List<Fuel> fuel;
 
   GasStation({
+    required this.stationId,
     required this.stationName,
     required this.stationLocation,
     required this.isOpen,
@@ -22,6 +24,7 @@ class GasStation {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
     return GasStation(
+      stationId: document.id,
       stationName: data['stationName'] ?? '',
       stationLocation: data['stationLocation'] ?? const GeoPoint(0.0, 0.0),
       isOpen: data['isOpen'] ?? false,
