@@ -31,7 +31,8 @@ class GasStationInfo extends StatelessWidget {
             PaymentOptions(paymentMethods: gasStation.paymentMethods)
           ],
         ),
-        FuelList(fuelList: gasStation.fuel),
+        Expanded(
+          child: FuelList(fuelList: gasStation.fuel)),
       ],
     );
   }
@@ -48,16 +49,17 @@ class FuelList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: fuelList.length,
       itemBuilder: (context, index) {
         Fuel fuel = fuelList[index];
         return Card(
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           color: Constants.secondaryColor,
           child: ListTile(
             title: Text(fuel.fuelName, style: TextStyle(color: Colors.white.withOpacity(0.8)),),
-            subtitle: Text('Price: ₱${fuel.fuelPrice.toStringAsFixed(2)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
+            subtitle: Text('₱${fuel.fuelPrice.toStringAsFixed(2)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
             trailing: fuel.fuelAvailable ? const Icon(Icons.check_circle, color: Colors.green) : const Icon(Icons.cancel, color: Colors.red),
             // Add more widgets as needed for additional information
           ),

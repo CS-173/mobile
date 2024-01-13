@@ -13,12 +13,12 @@ Future<String> calculateDistance(
     end.longitude,
   );
 
-  String _unit = "m";
+  String _unit = "meters";
 
   if (distanceInMeters > 1000) {
     distanceInMeters /= 1000;
     _unit = "km";
   }
 
-  return "${distanceInMeters.toStringAsFixed(2)} $_unit";
+  return "${distanceInMeters.toStringAsFixed(_unit=="km"?1:0)} $_unit";
 }

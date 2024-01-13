@@ -12,6 +12,7 @@ import '../components/rectangle_icon.dart';
 import '../models/gas_station_model.dart';
 import '../modules/distance_calculator.dart';
 import '../modules/is_operating_calculator.dart';
+import '../modules/min_max_price_finder.dart';
 import '../style/constants.dart';
 
 class MapPage extends StatefulWidget {
@@ -40,6 +41,9 @@ class _MapPageState extends State<MapPage> {
   GasStationCircle? selectedGasStation;
   bool _isTapped = false;
 
+  // for min max price range
+  List<double> priceRange = [0, 1000];
+
   void listenToGasStations() {
     gasStationSubscription = gasStationCollection
         .snapshots()
@@ -61,6 +65,9 @@ class _MapPageState extends State<MapPage> {
         if(_isLoaded) {
           updateMap();
         }
+        setState(() {
+          priceRange = findOverallMinMaxFuelPrices(gasStations);
+        });
       });
     });
   }
@@ -68,15 +75,19 @@ class _MapPageState extends State<MapPage> {
   void updateMap() {
     for (GasStationCircle gasStation in gasStations) {
       if (_isTapped && selectedGasStation!.gasStation.stationId == gasStation.gasStation.stationId) {
-        selectedGasStation = gasStation;
+        setState(() {
+          selectedGasStation = gasStation;
+        });
       }
 
       if (inMapStations.any((element) => element.gasStation.stationId == gasStation.gasStation.stationId)) {
         GasStationCircle circleToUpdate = inMapStations.firstWhere((circle) => circle.gasStation.stationId == gasStation.gasStation.stationId);
+
         _mapController.updateCircle(circleToUpdate.gasStationCircle, CircleOptions(
           geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude),
           circleColor: (gasStation.gasStation.isOpen && isStoreOpen(gasStation.gasStation.operatingHours))?"#2697FF":"#D32F38"
-        ));
+          )
+        );
 
       } else {
         _mapController.addCircle(gasStation.gasStationCircle.options).then((value) {
@@ -88,15 +99,26 @@ class _MapPageState extends State<MapPage> {
 
   void _onCircleTapped(Circle circle) {
     if (circle.options.circleColor != "#FFC226") {
-      setState(() {
-        _isTapped = !_isTapped;
-      });
+      // if already pressed a circle and pressed another one
+      if (_isTapped && circle != selectedGasStation!.gasStationCircle) {
+        _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 0));
 
-      if (_isTapped) {
-        selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
+        setState(() {
+          selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
+        });
+
         _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
       } else {
-        _mapController.updateCircle(circle, const CircleOptions(circleStrokeOpacity: 0));
+        setState(() {
+          _isTapped = !_isTapped;
+        });
+
+        if (_isTapped) {
+          selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
+          _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
+        } else {
+          _mapController.updateCircle(circle, const CircleOptions(circleStrokeOpacity: 0));
+        }
       }
     }
   }
@@ -208,13 +230,13 @@ class _MapPageState extends State<MapPage> {
                   ),
 
                   if(!_isLoaded)
-                    const Center(
-                      child: CircularProgressIndicator(),
-                  ),
-
-                  if(!_isLoaded)
                     Container(
                       color: Colors.black45,
+                    ),
+
+                  if(!_isLoaded)
+                    const Center(
+                      child: CircularProgressIndicator(),
                     )
                 ],
               ),
@@ -228,7 +250,7 @@ class _MapPageState extends State<MapPage> {
                   child: _isTapped
                     ? GasStationInfo(gasStation: selectedGasStation!.gasStation)
                     : _isLoaded
-                      ? GasStationList(gasStations: gasStations, currentLocation: currentLocation!)
+                      ? GasStationList(gasStations: gasStations, currentLocation: currentLocation!, priceRange: priceRange)
                       : const Center(child: CircularProgressIndicator())
                 ),
               )

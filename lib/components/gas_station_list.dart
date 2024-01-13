@@ -4,14 +4,16 @@ import 'package:location/location.dart';
 import '../components/rectangle_icon.dart';
 import '../models/gas_station_model.dart';
 import '../modules/distance_calculator.dart';
+import '../modules/price_range_calculator.dart';
 import '../style/constants.dart';
 
 
 class GasStationList extends StatelessWidget {
-  const GasStationList({super.key, required this.gasStations, required this.currentLocation});
+  const GasStationList({super.key, required this.gasStations, required this.currentLocation, required this.priceRange});
 
   final List<GasStationCircle> gasStations;
   final LocationData currentLocation;
+  final List<double> priceRange;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,10 @@ class GasStationList extends StatelessWidget {
           child: FutureBuilder<String>(
             future: calculateDistance(currentLocation , gasStation.stationLocation),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
-                return ListTile(title: Text("Calculating Distance..."));
-              } return ListTile(
+              return ListTile(
                 title: Text(gasStation.stationName, style: TextStyle(color: Colors.white.withOpacity(0.8)),),
-                subtitle: Text(snapshot.data!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
-                trailing: RectangleIcon(bg: Colors.red[300]!, name: '₱₱₱', color: Colors.red[900]!,),
+                subtitle: Text((snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none)?"Calculating...":snapshot.data!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
+                trailing: priceRangeCalculator(priceRange, gasStation.fuel),
               );
             }
           ),
