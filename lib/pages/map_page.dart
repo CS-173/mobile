@@ -33,7 +33,8 @@ class _MapPageState extends State<MapPage> {
   List<GasStationCircle> gasStations = [];
   List<GasStationCircle> inMapStations = [];
 
-  GasStation? selectedGasStation;
+  GasStationCircle? selectedGasStation;
+  bool _isTapped = false;
 
   void listenToGasStations() {
     gasStationSubscription = gasStationCollection
@@ -46,7 +47,10 @@ class _MapPageState extends State<MapPage> {
             geometry: LatLng(gasStation.stationLocation.latitude, gasStation.stationLocation.longitude),
             circleColor: "#2697FF",
             circleRadius: 5.0,
-            circleOpacity: 1
+            circleOpacity: 1,
+            circleStrokeColor: "#FFFFFF",
+            circleStrokeWidth: 2,
+            circleStrokeOpacity: 0
             ))
           );
         }).toList();
@@ -74,8 +78,25 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
+  void _onCircleTapped(Circle circle) {
+    setState(() {
+      _isTapped = !_isTapped;
+    });
+
+    if (_isTapped) {
+      if (circle.options.circleColor == "#2697FF") {
+        selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
+        _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
+      }
+    } else {
+      _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 0));
+    }
+  }
+
   _onMapCreated(MapboxMapController controller) {
     _mapController = controller;
+
+    _mapController.onCircleTapped.add(_onCircleTapped);
   }
 
   _onMapStyleLoaded() {
@@ -196,7 +217,7 @@ class _MapPageState extends State<MapPage> {
                 width: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.all(Constants.defaultPadding),
-                  child: selectedGasStation != null
+                  child: _isTapped
                     ? GasStationInfo(gasStations: gasStations)
                     : Center(child: CircularProgressIndicator()),
                 ),
