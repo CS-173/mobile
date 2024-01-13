@@ -7,6 +7,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:mobile/services/mapbox.dart';
 
 import '../components/gas_station_info.dart';
+import '../components/gas_station_list.dart';
 import '../components/rectangle_icon.dart';
 import '../models/gas_station_model.dart';
 import '../modules/distance_calculator.dart';
@@ -226,23 +227,9 @@ class _MapPageState extends State<MapPage> {
                   padding: const EdgeInsets.all(Constants.defaultPadding),
                   child: _isTapped
                     ? GasStationInfo(gasStation: selectedGasStation!.gasStation)
-                    : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: gasStations.length,
-                    itemBuilder: (context, index) {
-                      GasStation gasStation = gasStations[index].gasStation;
-                      return Card(
-                        margin: EdgeInsets.only(top: 10),
-                        color: Constants.secondaryColor,
-                        child: ListTile(
-                          title: Text(gasStation.stationName, style: TextStyle(color: Colors.white.withOpacity(0.8)),),
-                          subtitle: Text(calculateDistance(currentLocation! , gasStation.stationLocation).toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
-                          trailing: RectangleIcon(bg: Colors.red[300]!, name: '₱₱₱', color: Colors.red[900]!,),
-                          // Add more widgets as needed for additional information
-                        ),
-                      );
-                    },
-                  )
+                    : _isLoaded
+                      ? GasStationList(gasStations: gasStations, currentLocation: currentLocation!)
+                      : const Center(child: CircularProgressIndicator())
                 ),
               )
             )
