@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/payment_options.dart';
 
 import '../models/gas_station_model.dart';
-import '../modules/is_operating_calculator.dart';
 import '../style/constants.dart';
 
 class GasStationInfo extends StatelessWidget {
@@ -31,13 +30,6 @@ class GasStationInfo extends StatelessWidget {
             ),
             PaymentOptions(paymentMethods: gasStation.paymentMethods)
           ],
-        ),
-        Text(
-          (gasStation.isOpen && isStoreOpen(gasStation.operatingHours))?"Open":"Closed",
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 20
-          ),
         ),
         FuelList(fuelList: gasStation.fuel),
       ],

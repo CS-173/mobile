@@ -7,7 +7,9 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:mobile/services/mapbox.dart';
 
 import '../components/gas_station_info.dart';
+import '../components/rectangle_icon.dart';
 import '../models/gas_station_model.dart';
+import '../modules/distance_calculator.dart';
 import '../modules/is_operating_calculator.dart';
 import '../style/constants.dart';
 
@@ -70,11 +72,11 @@ class _MapPageState extends State<MapPage> {
 
       if (inMapStations.any((element) => element.gasStation.stationId == gasStation.gasStation.stationId)) {
         GasStationCircle circleToUpdate = inMapStations.firstWhere((circle) => circle.gasStation.stationId == gasStation.gasStation.stationId);
-        // inMapStations[inMapStations.indexWhere((element) => element.gasStation.stationId == gasStation.gasStation.stationId)] = gasStation;
         _mapController.updateCircle(circleToUpdate.gasStationCircle, CircleOptions(
           geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude),
           circleColor: (gasStation.gasStation.isOpen && isStoreOpen(gasStation.gasStation.operatingHours))?"#2697FF":"#D32F38"
         ));
+
       } else {
         _mapController.addCircle(gasStation.gasStationCircle.options).then((value) {
           inMapStations.add(GasStationCircle(gasStation: gasStation.gasStation, gasStationCircle: value));
@@ -93,7 +95,7 @@ class _MapPageState extends State<MapPage> {
         selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
         _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
       } else {
-        _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 0));
+        _mapController.updateCircle(circle, const CircleOptions(circleStrokeOpacity: 0));
       }
     }
   }
@@ -224,7 +226,23 @@ class _MapPageState extends State<MapPage> {
                   padding: const EdgeInsets.all(Constants.defaultPadding),
                   child: _isTapped
                     ? GasStationInfo(gasStation: selectedGasStation!.gasStation)
-                    : const Center(child: CircularProgressIndicator()),
+                    : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: gasStations.length,
+                    itemBuilder: (context, index) {
+                      GasStation gasStation = gasStations[index].gasStation;
+                      return Card(
+                        margin: EdgeInsets.only(top: 10),
+                        color: Constants.secondaryColor,
+                        child: ListTile(
+                          title: Text(gasStation.stationName, style: TextStyle(color: Colors.white.withOpacity(0.8)),),
+                          subtitle: Text(calculateDistance(currentLocation! , gasStation.stationLocation).toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
+                          trailing: RectangleIcon(bg: Colors.red[300]!, name: '₱₱₱', color: Colors.red[900]!,),
+                          // Add more widgets as needed for additional information
+                        ),
+                      );
+                    },
+                  )
                 ),
               )
             )
