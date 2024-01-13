@@ -12,7 +12,7 @@ class Constants {
   static Color shimmerBack = Colors.black.withOpacity(0.03);
   static Color shimmerFront = Colors.black.withOpacity(0.08);
 
-  static const primaryColor = Color(0xFF2697FF);
+  static const primaryColor = Color(0xFFD32F38);
   static const secondaryColor = Color(0xFF2A2D3E);
   static const tertiaryColor = Color(0xFF35384D);
   static const bgColor = Color(0xFF212332);

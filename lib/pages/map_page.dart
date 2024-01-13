@@ -8,6 +8,7 @@ import 'package:mobile/services/mapbox.dart';
 
 import '../components/gas_station_info.dart';
 import '../models/gas_station_model.dart';
+import '../modules/is_operating_calculator.dart';
 import '../style/constants.dart';
 
 class MapPage extends StatefulWidget {
@@ -68,7 +69,7 @@ class _MapPageState extends State<MapPage> {
         GasStationCircle circleToUpdate = inMapStations.firstWhere((circle) => circle.gasStation.stationId == gasStation.gasStation.stationId);
         _mapController.updateCircle(circleToUpdate.gasStationCircle, CircleOptions(
           geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude),
-          circleOpacity: gasStation.gasStation.isOpen?10:0,
+          circleColor: (gasStation.gasStation.isOpen && isStoreOpen(gasStation.gasStation.operatingHours))?"#2697FF":"#2F38FF"
         ));
       } else {
         _mapController.addCircle(gasStation.gasStationCircle.options).then((value) {
@@ -79,17 +80,17 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _onCircleTapped(Circle circle) {
-    setState(() {
-      _isTapped = !_isTapped;
-    });
+    if (circle.options.circleColor == "#2697FF") {
+      setState(() {
+        _isTapped = !_isTapped;
+      });
 
-    if (_isTapped) {
-      if (circle.options.circleColor == "#2697FF") {
+      if (_isTapped) {
         selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
         _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
+      } else {
+        _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 0));
       }
-    } else {
-      _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 0));
     }
   }
 
@@ -213,12 +214,12 @@ class _MapPageState extends State<MapPage> {
             ),
             Expanded(
               flex: 1,
-              child: Container(
+              child: SizedBox(
                 width: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.all(Constants.defaultPadding),
                   child: _isTapped
-                    ? GasStationInfo(gasStations: gasStations)
+                    ? GasStationInfo(gasStation: selectedGasStation!.gasStation)
                     : Center(child: CircularProgressIndicator()),
                 ),
               )
