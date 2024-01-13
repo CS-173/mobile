@@ -46,7 +46,7 @@ class _MapPageState extends State<MapPage> {
           GasStation gasStation = GasStation.fromFirestore(doc);
           return GasStationCircle(gasStation: gasStation,  gasStationCircle: Circle("GasStationCircle", CircleOptions(
             geometry: LatLng(gasStation.stationLocation.latitude, gasStation.stationLocation.longitude),
-            circleColor: "#2697FF",
+            circleColor: (gasStation.isOpen && isStoreOpen(gasStation.operatingHours))?"#2697FF":"#D32F38",
             circleRadius: 5.0,
             circleOpacity: 1,
             circleStrokeColor: "#FFFFFF",
@@ -55,21 +55,25 @@ class _MapPageState extends State<MapPage> {
             ))
           );
         }).toList();
+        if(_isLoaded) {
+          updateMap();
+        }
       });
-
-      if(_isLoaded) {
-        updateMap();
-      }
     });
   }
 
   void updateMap() {
     for (GasStationCircle gasStation in gasStations) {
+      if (_isTapped && selectedGasStation!.gasStation.stationId == gasStation.gasStation.stationId) {
+        selectedGasStation = gasStation;
+      }
+
       if (inMapStations.any((element) => element.gasStation.stationId == gasStation.gasStation.stationId)) {
         GasStationCircle circleToUpdate = inMapStations.firstWhere((circle) => circle.gasStation.stationId == gasStation.gasStation.stationId);
+        // inMapStations[inMapStations.indexWhere((element) => element.gasStation.stationId == gasStation.gasStation.stationId)] = gasStation;
         _mapController.updateCircle(circleToUpdate.gasStationCircle, CircleOptions(
           geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude),
-          circleColor: (gasStation.gasStation.isOpen && isStoreOpen(gasStation.gasStation.operatingHours))?"#2697FF":"#2F38FF"
+          circleColor: (gasStation.gasStation.isOpen && isStoreOpen(gasStation.gasStation.operatingHours))?"#2697FF":"#D32F38"
         ));
       } else {
         _mapController.addCircle(gasStation.gasStationCircle.options).then((value) {
@@ -80,7 +84,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _onCircleTapped(Circle circle) {
-    if (circle.options.circleColor == "#2697FF") {
+    if (circle.options.circleColor != "#FFC226") {
       setState(() {
         _isTapped = !_isTapped;
       });
@@ -184,7 +188,7 @@ class _MapPageState extends State<MapPage> {
         body: Column(
           children: [
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Stack(
                 children: [
                   MapboxMap(
@@ -201,8 +205,8 @@ class _MapPageState extends State<MapPage> {
                   ),
 
                   if(!_isLoaded)
-                    Center(
-                    child: CircularProgressIndicator(),
+                    const Center(
+                      child: CircularProgressIndicator(),
                   ),
 
                   if(!_isLoaded)
@@ -213,14 +217,14 @@ class _MapPageState extends State<MapPage> {
               ),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: SizedBox(
                 width: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.all(Constants.defaultPadding),
                   child: _isTapped
                     ? GasStationInfo(gasStation: selectedGasStation!.gasStation)
-                    : Center(child: CircularProgressIndicator()),
+                    : const Center(child: CircularProgressIndicator()),
                 ),
               )
             )
