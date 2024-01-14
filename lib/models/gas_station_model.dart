@@ -56,7 +56,7 @@ class Fuel {
 
   factory Fuel.fromMap(Map<String, dynamic> fuelData) {
     return Fuel(
-      fuelPrice: fuelData['fuelPrice'] ?? 0.0,
+      fuelPrice: fuelData['fuelPrice'].toDouble() ?? 0.0,
       fuelName: fuelData['fuelName'] ?? '',
       fuelAvailable: fuelData['fuelAvailable'] ?? false,
     );

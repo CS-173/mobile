@@ -17,7 +17,7 @@ class RectangleIcon extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 6),
       padding: const EdgeInsets.all(3),
-      width: 38,
+      width: 40,
       height: 20,
       decoration: BoxDecoration(
           color: bg,
