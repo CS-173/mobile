@@ -21,11 +21,15 @@ class GasStationInfo extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              gasStation.stationName,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
+            Expanded(
+              child: Text(
+                gasStation.stationName,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
             PaymentOptions(paymentMethods: gasStation.paymentMethods)

@@ -17,5 +17,11 @@ class Constants {
   static const tertiaryColor = Color(0xFF35384D);
   static const bgColor = Color(0xFF212332);
 
+  static const irish1 = Color(0xFFda002b);
+  static const irish2 = Color(0xFFf7bc28);
+  static const irish3 = Color(0xFF468c37);
+  static const irish4 = Color(0xFFff7547);
+  static const irish5 = Color(0xFF1d4e8a);
+
   static const defaultPadding = 16.0;
 }

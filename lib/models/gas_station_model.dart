@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 class GasStation {
@@ -61,6 +62,14 @@ class Fuel {
       fuelAvailable: fuelData['fuelAvailable'] ?? false,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'fuelPrice': fuelPrice,
+      'fuelName': fuelName,
+      'fuelAvailable': fuelAvailable,
+    };
+  }
 }
 
 class GasStationCircle {
@@ -68,4 +77,11 @@ class GasStationCircle {
   final Circle gasStationCircle;
 
   GasStationCircle({required this.gasStation, required this.gasStationCircle});
+}
+
+class WidgetAndGasStation {
+  final Widget widget;
+  final GasStation gasStation;
+
+  WidgetAndGasStation({required this.widget, required this.gasStation});
 }

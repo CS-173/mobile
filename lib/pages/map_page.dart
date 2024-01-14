@@ -7,12 +7,11 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:mobile/services/mapbox.dart';
 
 import '../components/gas_station_info.dart';
-import '../components/gas_station_list.dart';
-import '../components/rectangle_icon.dart';
 import '../models/gas_station_model.dart';
 import '../modules/distance_calculator.dart';
 import '../modules/is_operating_calculator.dart';
 import '../modules/min_max_price_finder.dart';
+import '../modules/price_range_calculator.dart';
 import '../style/constants.dart';
 
 class MapPage extends StatefulWidget {
@@ -120,6 +119,15 @@ class _MapPageState extends State<MapPage> {
           _mapController.updateCircle(circle, const CircleOptions(circleStrokeOpacity: 0));
         }
       }
+
+      if (_isTapped) {
+        _mapController.animateCamera(
+          CameraUpdate.newLatLngZoom(
+            LatLng(selectedGasStation!.gasStation.stationLocation.latitude, selectedGasStation!.gasStation.stationLocation.longitude),
+            14.0,
+          )
+        );
+      }
     }
   }
 
@@ -176,7 +184,7 @@ class _MapPageState extends State<MapPage> {
         _mapController.addCircle(
             CircleOptions(
               circleOpacity: 1,
-              circleRadius: 5,
+              circleRadius: 6,
               circleColor: "#FFC226",
               geometry: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
             )
@@ -250,7 +258,30 @@ class _MapPageState extends State<MapPage> {
                   child: _isTapped
                     ? GasStationInfo(gasStation: selectedGasStation!.gasStation)
                     : _isLoaded
-                      ? GasStationList(gasStations: gasStations, currentLocation: currentLocation!, priceRange: priceRange)
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: gasStations.length,
+                          itemBuilder: (context, index) {
+                            GasStation gasStation = gasStations[index].gasStation;
+                            return Card(
+                              margin: const EdgeInsets.only(top: 10),
+                              color: Constants.secondaryColor,
+                              child: FutureBuilder<String>(
+                                  future: calculateDistance(currentLocation! , gasStation.stationLocation),
+                                  builder: (context, snapshot) {
+                                    return GestureDetector(
+                                      onTap: ()=>_onCircleTapped(inMapStations.firstWhere((element) => element.gasStation.stationId == gasStation.stationId).gasStationCircle),
+                                      child: ListTile(
+                                        title: Text(gasStation.stationName, style: TextStyle(color: Colors.white.withOpacity(0.8)),),
+                                        subtitle: Text((snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none)?"Calculating...":snapshot.data!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
+                                        trailing: priceRangeCalculator(priceRange, gasStation.fuel),
+                                      ),
+                                    );
+                                  }
+                              ),
+                            );
+                          },
+                        )
                       : const Center(child: CircularProgressIndicator())
                 ),
               )

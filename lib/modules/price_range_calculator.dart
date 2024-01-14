@@ -10,13 +10,14 @@ RectangleIcon priceRangeCalculator(List<double> minMax, List<Fuel> fuelPrices) {
     average += fuel.fuelPrice;
   }
   average /= fuelPrices.length;
-
-  if (average-minMax[0] > (minMax[1]-minMax[0])*0.66) {
-    return RectangleIcon(bg: Colors.red[200]!, name: '₱${(((minMax[1]-minMax[0])*0.66)+minMax[0]).toStringAsFixed(1)}+', color: Colors.red[900]!);
+  if (minMax[0] == 0 && minMax[1] == 1000) {
+    return RectangleIcon(bg: Colors.grey[200]!, name: '...', color: Colors.grey[900]!);
+  } else if (average-minMax[0] > (minMax[1]-minMax[0])*0.66) {
+    return RectangleIcon(bg: Colors.red[200]!, name: '~₱${average.toStringAsFixed(1)}', color: Colors.red[900]!);
   } else if (average-minMax[0] > (minMax[1]-minMax[0])*0.33) {
-    return RectangleIcon(bg: Colors.orange[200]!, name: '₱${(((minMax[1]-minMax[0])*0.33)+minMax[0]).toStringAsFixed(1)}+', color: Colors.orange[900]!);
+    return RectangleIcon(bg: Colors.orange[200]!, name: '~₱${average.toStringAsFixed(1)}', color: Colors.orange[900]!);
   } else {
-    return RectangleIcon(bg: Colors.green[200]!, name: '₱${minMax[0].toStringAsFixed(1)}+', color: Colors.green[900]!);
+    return RectangleIcon(bg: Colors.green[200]!, name: '~₱${average.toStringAsFixed(1)}', color: Colors.green[900]!);
   }
 
 }
