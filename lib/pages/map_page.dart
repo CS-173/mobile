@@ -123,8 +123,7 @@ class _MapPageState extends State<MapPage> {
       if (_isTapped) {
         _mapController.animateCamera(
           CameraUpdate.newLatLngZoom(
-            LatLng(selectedGasStation!.gasStation.stationLocation.latitude, selectedGasStation!.gasStation.stationLocation.longitude),
-            14.0,
+            LatLng(selectedGasStation!.gasStation.stationLocation.latitude, selectedGasStation!.gasStation.stationLocation.longitude), 14.0,
           )
         );
       }
@@ -254,7 +253,7 @@ class _MapPageState extends State<MapPage> {
               child: SizedBox(
                 width: double.maxFinite,
                 child: Padding(
-                  padding: const EdgeInsets.all(Constants.defaultPadding),
+                  padding: const EdgeInsets.only(left: Constants.defaultPadding, top: Constants.defaultPadding, right: Constants.defaultPadding),
                   child: _isTapped
                     ? GasStationInfo(gasStation: selectedGasStation!.gasStation)
                     : _isLoaded
