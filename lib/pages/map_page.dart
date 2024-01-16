@@ -231,7 +231,6 @@ class _MapPageState extends State<MapPage> {
                     ),
                     onMapCreated: _onMapCreated,
                     onStyleLoadedCallback: _onMapStyleLoaded,
-                    styleString: mapStyle,
                     rotateGesturesEnabled: false,
                     tiltGesturesEnabled: false,
                   ),

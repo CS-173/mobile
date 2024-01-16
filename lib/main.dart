@@ -40,21 +40,22 @@ class MyApp extends StatelessWidget {
         icon: Icon(CupertinoIcons.home, size: 20),
         title: ("Home"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: Constants.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.wallet, size: 20),
         title: ("Wallet"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: Constants.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.map, size: 25, color: CupertinoColors.systemGrey,),
+        icon: const Icon(CupertinoIcons.map, size: 25, color: Constants.primaryColor,),
         title: ("Stations"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: Constants.irish2,
+        activeColorSecondary: Constants.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         contentPadding: 10.0
       ),
@@ -62,14 +63,14 @@ class MyApp extends StatelessWidget {
         icon: const Icon(CupertinoIcons.gift, size: 20),
         title: ("Vouchers"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: Constants.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.profile_circled, size: 20),
         title: ("Profile"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: Constants.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];
@@ -85,10 +86,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Constants.bgColor,
         disabledColor: Colors.grey,
       ),
-      themeMode: ThemeMode.dark,
       home: PersistentTabView(
         context,
         controller: _controller,
+        navBarHeight: 60,
         screens: _buildScreens(),
         items: _navBarsItems(),
         confineInSafeArea: true,
@@ -98,16 +99,24 @@ class MyApp extends StatelessWidget {
         stateManagement: true, // Default is true.
         hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         decoration: NavBarDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: Offset(0, 2.0),
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+          ],
           colorBehindNavBar: Constants.bgColor,
           borderRadius: BorderRadius.circular(0.0),
         ),
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: ItemAnimationProperties( // Navigation Bar's items animation properties.
+        itemAnimationProperties: const ItemAnimationProperties( // Navigation Bar's items animation properties.
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),
-        screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
+        screenTransitionAnimation: const ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
           animateTabTransition: true,
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),

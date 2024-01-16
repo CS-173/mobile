@@ -12,13 +12,13 @@ class Constants {
   static Color shimmerBack = Colors.black.withOpacity(0.03);
   static Color shimmerFront = Colors.black.withOpacity(0.08);
 
-  static const primaryColor = Color(0xFF2697FF);
+  static const primaryColor = Color(0xFFda002b);
   static const secondaryColor = Color(0xFF2A2D3E);
   static const tertiaryColor = Color(0xFF35384D);
-  static const bgColor = Color(0xFF212332);
+  static const bgColor = Color(0xFFFFFFFF);
 
   static const irish1 = Color(0xFFda002b);
-  static const irish2 = Color(0xFFf7bc28);
+  static const irish2 = Color(0xffffb300);
   static const irish3 = Color(0xFF468c37);
   static const irish4 = Color(0xFFff7547);
   static const irish5 = Color(0xFF1d4e8a);
