@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
+import '../components/icon_and_widget_rectangle.dart';
 import '../style/constants.dart';
 
 class HomePage extends StatelessWidget {
@@ -53,7 +54,7 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "0 points",
+                      "65 points",
                       style: TextStyle(
                           color: Constants.primaryColor,
                           fontSize: 27,
@@ -121,38 +122,16 @@ class HomePage extends StatelessWidget {
 
               const SizedBox(height: Constants.defaultPadding),
 
-              Container(
-                padding: const EdgeInsets.all(Constants.defaultPadding),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      offset: const Offset(0, 2.0),
-                      blurRadius: 2,
-                      spreadRadius: 1.0,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.shopping_basket, color: Constants.primaryColor, size: 25),
-                        const SizedBox(width: Constants.defaultPadding),
-                        Text(
-                          "Use your points",
-                          style: TextStyle(
-                              color: Colors.grey[700],
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+              IconAndWidgetRectangle(
+                icon: Icon(Icons.shopping_basket, color: Constants.primaryColor, size: 25),
+                rectColor: Colors.white,
+                widget: Text(
+                  "Use your points",
+                  style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400
+                  ),
                 ),
               ),
 
@@ -248,7 +227,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 3),
-                              Text(
+                              const Text(
                                 "Route",
                                 style: TextStyle(
                                     color: Constants.irish5,
@@ -271,3 +250,5 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
