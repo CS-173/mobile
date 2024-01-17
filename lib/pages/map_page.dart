@@ -108,6 +108,7 @@ class _MapPageState extends State<MapPage> {
 
         _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
       } else {
+
         setState(() {
           _isTapped = !_isTapped;
         });
