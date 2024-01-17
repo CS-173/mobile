@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../components/icon_and_widget_rectangle.dart';
 import '../style/constants.dart';

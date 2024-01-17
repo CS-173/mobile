@@ -16,7 +16,7 @@ class VouchersPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: Constants.defaultPadding, top: Constants.defaultPadding, right: Constants.defaultPadding),
               child: Text(
-                "Rewards",
+                "Vouchers",
                 style: TextStyle(
                     color: Constants.primaryColor,
                     fontSize: 27,
