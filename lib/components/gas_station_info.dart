@@ -18,25 +18,30 @@ class GasStationInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                gasStation.stationName,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20
+        Padding(
+          padding: const EdgeInsets.only(top: Constants.defaultPadding, left: Constants.defaultPadding, right: Constants.defaultPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  gasStation.stationName,
+                  style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 20
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
               ),
-            ),
-            PaymentOptions(paymentMethods: gasStation.paymentMethods)
-          ],
+              PaymentOptions(paymentMethods: gasStation.paymentMethods)
+            ],
+          ),
         ),
         Expanded(
-          child: FuelList(fuelList: gasStation.fuel)),
+          child: Transform.scale(
+            scale: 0.95,
+              child: FuelList(fuelList: gasStation.fuel))),
       ],
     );
   }
@@ -59,13 +64,25 @@ class FuelList extends StatelessWidget {
       itemBuilder: (context, index) {
         Fuel fuel = fuelList[index];
         return Card(
-          margin: const EdgeInsets.only(top: 10),
-          color: Constants.secondaryColor,
-          child: ListTile(
-            title: Text(fuel.fuelName, style: TextStyle(color: Colors.white.withOpacity(0.8)),),
-            subtitle: Text('₱${fuel.fuelPrice.toStringAsFixed(2)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
-            trailing: fuel.fuelAvailable ? const Icon(Icons.check_circle, color: Colors.green) : const Icon(Icons.cancel, color: Colors.red),
-            // Add more widgets as needed for additional information
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 2.0),
+                  blurRadius: 3,
+                  spreadRadius: 1.0,
+                ),
+              ],
+            ),
+            child: ListTile(
+              title: Text(fuel.fuelName, style: TextStyle(color: Colors.grey[700]),),
+              subtitle: Text('₱${fuel.fuelPrice.toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w900)),
+              trailing: fuel.fuelAvailable ? const Icon(Icons.check_circle, color: Colors.green) : const Icon(Icons.cancel, color: Colors.red),
+              // Add more widgets as needed for additional information
+            ),
           ),
         );
       },
