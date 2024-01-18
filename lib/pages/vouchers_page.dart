@@ -20,7 +20,7 @@ class VouchersPage extends StatelessWidget {
                 style: TextStyle(
                     color: Constants.primaryColor,
                     fontSize: 27,
-                    fontWeight: FontWeight.w900
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
@@ -33,8 +33,8 @@ class VouchersPage extends StatelessWidget {
                 "GASULIT MEMBER BENEFITS",
                 style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 12,
-                    fontWeight: FontWeight.w900
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
@@ -63,8 +63,8 @@ class VouchersPage extends StatelessWidget {
                 "GASULIT PLUS REWARDS",
                 style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 12,
-                    fontWeight: FontWeight.w900
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
@@ -95,7 +95,7 @@ class VouchersPage extends StatelessWidget {
                       "Learn about your Gasulit Plus Rewards",
                       style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.bold,
                           color: Colors.grey[800]
                       ),
                     ),
@@ -165,7 +165,7 @@ class RectangleWIthImageText extends StatelessWidget {
                   header,
                   style: TextStyle(
                     fontSize: 17,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                     color: Colors.grey[800]
                   ),
                 ),

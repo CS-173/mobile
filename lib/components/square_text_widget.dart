@@ -38,7 +38,8 @@ class SquareTextWidget extends StatelessWidget {
         text,
         style: TextStyle(
             fontWeight: FontWeight.w500,
-            color: textColor
+            color: textColor,
+          fontSize: 15
         ),
       ),
     );

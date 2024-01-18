@@ -20,8 +20,8 @@ class ProfilePage extends StatelessWidget {
                 "Irish Ghayle",
                 style: TextStyle(
                     color: Constants.primaryColor,
-                    fontSize: 27,
-                    fontWeight: FontWeight.w900
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold
                 ),
               ),
               const SizedBox(height: Constants.defaultPadding),
@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.grey[600],
                     fontSize: 13,
-                    fontWeight: FontWeight.w900
+                    fontWeight: FontWeight.bold
                 ),
               ),
               const SizedBox(height: Constants.defaultPadding),
@@ -43,7 +43,7 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.grey[600],
                     fontSize: 13,
-                    fontWeight: FontWeight.w900
+                    fontWeight: FontWeight.bold
                 ),
               ),
               const SizedBox(height: Constants.defaultPadding),
@@ -54,7 +54,7 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.grey[600],
                     fontSize: 13,
-                    fontWeight: FontWeight.w900
+                    fontWeight: FontWeight.bold
                 ),
               ),
               const SizedBox(height: Constants.defaultPadding),
@@ -70,7 +70,7 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontSize: 10,
-                        fontWeight: FontWeight.w900
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                   Text(
@@ -78,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontSize: 10,
-                        fontWeight: FontWeight.w900
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                 ],

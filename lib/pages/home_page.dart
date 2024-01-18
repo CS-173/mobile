@@ -19,9 +19,9 @@ class HomePage extends StatelessWidget {
               Text(
                 "Hi Irish Ghayle",
                 style: TextStyle(
-                  color: Constants.primaryColor,
-                  fontSize: 27,
-                  fontWeight: FontWeight.w900
+                    color: Constants.primaryColor,
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold
                 ),
               ),
               Text(
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 15,
-                    fontWeight: FontWeight.w400
+                    fontWeight: FontWeight.w500
                 ),
               ),
 
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                       style: TextStyle(
                           color: Constants.primaryColor,
                           fontSize: 27,
-                          fontWeight: FontWeight.w900
+                          fontWeight: FontWeight.bold
                       ),
                     ),
 
@@ -67,8 +67,8 @@ class HomePage extends StatelessWidget {
                       "How can I collect points?",
                       style: TextStyle(
                           color: Colors.grey[700],
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
                       ),
                     ),
 
@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
                       style: TextStyle(
                           color: Constants.primaryColor,
                           fontSize: 23,
-                          fontWeight: FontWeight.w900
+                          fontWeight: FontWeight.bold
                       ),
                     ),
 
@@ -93,8 +93,8 @@ class HomePage extends StatelessWidget {
                       "Learn how to get the most out of your stamps",
                       style: TextStyle(
                           color: Colors.grey[700],
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
                       ),
                     ),
 
@@ -128,8 +128,8 @@ class HomePage extends StatelessWidget {
                   "Use your points",
                   style: TextStyle(
                       color: Colors.grey[700],
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500
                   ),
                 ),
               ),
@@ -140,8 +140,8 @@ class HomePage extends StatelessWidget {
                 "NEAREST STATION",
                 style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 10,
-                    fontWeight: FontWeight.w900
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold
                 ),
               ),
 

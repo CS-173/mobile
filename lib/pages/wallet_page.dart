@@ -26,7 +26,7 @@ class WalletPage extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.grey[700],
                           fontSize: 27,
-                          fontWeight: FontWeight.w900
+                          fontWeight: FontWeight.bold
                       ),
                     ),
 
@@ -37,7 +37,7 @@ class WalletPage extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.grey[700],
                           fontSize: 15,
-                          fontWeight: FontWeight.w400
+                          fontWeight: FontWeight.w500
                       ),
                     ),
 
@@ -66,14 +66,14 @@ class WalletPage extends StatelessWidget {
                               'Gasulit Wallet',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 13,
+                                fontSize: 15,
                               ),
                             ),
                             Text(
                               '₱32,467.25',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500
                               ),
                             ),
@@ -96,7 +96,7 @@ class WalletPage extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w800
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
                             Text(
@@ -104,7 +104,7 @@ class WalletPage extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w400
+                                  fontWeight: FontWeight.w500
                               ),
                             ),
                           ],
@@ -130,8 +130,8 @@ class WalletPage extends StatelessWidget {
                             Text(
                               "Cash In",
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -148,8 +148,8 @@ class WalletPage extends StatelessWidget {
                             Text(
                               "Scan to Pay",
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -166,8 +166,8 @@ class WalletPage extends StatelessWidget {
                             Text(
                               "Transfer",
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -192,7 +192,7 @@ class WalletPage extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.grey[700],
                           fontSize: 20,
-                          fontWeight: FontWeight.w900
+                          fontWeight: FontWeight.bold
                       ),
                     ),
 
@@ -226,8 +226,8 @@ class WalletPage extends StatelessWidget {
                                       "Stand a chance to win up to 10,000 points!",
                                       style: TextStyle(
                                         color: Colors.grey[800],
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -238,9 +238,9 @@ class WalletPage extends StatelessWidget {
                                     Text(
                                       "Explore activities that can win you vouchers!",
                                       style: TextStyle(
-                                          color: Colors.grey[600],
+                                          color: Colors.grey[500],
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w400
+                                          fontWeight: FontWeight.w500
                                       ),
                                     ),
 
@@ -248,7 +248,7 @@ class WalletPage extends StatelessWidget {
                                 ),
                               ),
                               const Padding(
-                                padding: EdgeInsets.only(left: Constants.defaultPadding, right: Constants.defaultPadding/2),
+                                padding: EdgeInsets.only(left: Constants.defaultPadding/2, right: Constants.defaultPadding/2),
                                 child: Column(
                                   children: [
                                     Center(
@@ -278,7 +278,7 @@ class WalletPage extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.grey[700],
                           fontSize: 20,
-                          fontWeight: FontWeight.w900
+                          fontWeight: FontWeight.bold
                       ),
                     ),
 
@@ -296,8 +296,8 @@ class WalletPage extends StatelessWidget {
                       "Recent Transactions",
                       style: TextStyle(
                           color: Colors.grey[700],
-                          fontSize: 27,
-                          fontWeight: FontWeight.w900
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
                       ),
                     ),
                     SizedBox(
@@ -308,7 +308,7 @@ class WalletPage extends StatelessWidget {
                           children: [
                             Icon(CupertinoIcons.cube_box, size: 100, color: Colors.grey[500],),
                             Text('There\'s no recent activity to show here.', style: TextStyle(color: Colors.grey[600])),
-                            Text('See past transactions', style: TextStyle(color: Colors.lightBlue[800], fontWeight: FontWeight.w700)),
+                            Text('See past transactions', style: TextStyle(color: Colors.lightBlue[800], fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),

@@ -93,6 +93,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Constants.bgColor,
         disabledColor: Colors.grey,
+        fontFamily: 'Futura'
       ),
       home: PersistentTabView(
         context,
