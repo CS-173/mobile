@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(Constants.defaultPadding),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(Constants.defaultPadding),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -150,7 +150,7 @@ class HomePage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(Constants.defaultPadding),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(Constants.defaultPadding),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(

@@ -44,45 +44,49 @@ class WalletPage extends StatelessWidget {
                     const SizedBox(height: Constants.defaultPadding),
 
                     Container(
-                      width: double.maxFinite,
-                      height: 175, // Adjust the height of the container
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Constants.defaultPadding),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.red.shade900, // Dark red at the bottom left
-                            Colors.red.shade300, // Bright red at the top right
-                          ],
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.topRight,
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(top: Constants.defaultPadding, left: Constants.defaultPadding, right: Constants.defaultPadding, bottom: Constants.defaultPadding/1.5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Gasulit Wallet',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
+                      height: 220.0, // Set the desired height of the Stack
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: Constants.defaultPadding),
+                              child: Transform.scale(
+                                scale: 1.119,
+                                child: Image.asset(
+                                  'lib/assets/images/Card.png',
+                                  fit: BoxFit.fitWidth,
+                                  width: double.infinity,
+                                ),
                               ),
                             ),
-                            Text(
-                              '₱32,467.25',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500
-                              ),
+                          ),
+                          Positioned(
+                            top: 20.0,
+                            left: 20.0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Gasulit Wallet',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                Text(
+                                  '₱32,467.25',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-
-                    const SizedBox(height: Constants.defaultPadding),
 
                     IconAndWidgetRectangle(
                         radius: Constants.defaultPadding,
@@ -201,7 +205,7 @@ class WalletPage extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(Constants.defaultPadding),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(Constants.defaultPadding),
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(

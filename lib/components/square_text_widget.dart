@@ -23,7 +23,7 @@ class SquareTextWidget extends StatelessWidget {
       width: 150,
       height: 150,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Constants.defaultPadding/1.5),
+          borderRadius: BorderRadius.circular(Constants.defaultPadding),
           color: Constants.primaryColor,
           gradient: LinearGradient(
               colors: [

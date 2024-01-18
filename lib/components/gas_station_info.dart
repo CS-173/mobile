@@ -66,7 +66,7 @@ class FuelList extends StatelessWidget {
         return Card(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(Constants.defaultPadding),
               color: Colors.white,
               boxShadow: [
                 BoxShadow(

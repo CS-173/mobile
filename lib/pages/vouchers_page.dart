@@ -77,7 +77,7 @@ class VouchersPage extends StatelessWidget {
                 padding: EdgeInsets.all(Constants.defaultPadding),
                 width: double.maxFinite,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(Constants.defaultPadding),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -132,7 +132,7 @@ class RectangleWIthImageText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(Constants.defaultPadding),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -148,7 +148,7 @@ class RectangleWIthImageText extends StatelessWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0)
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(Constants.defaultPadding), topRight: Radius.circular(Constants.defaultPadding)
               ),
               color: Colors.red
             ),

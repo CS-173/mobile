@@ -11,7 +11,7 @@ class IconAndWidgetRectangle extends StatelessWidget {
     required this.rectColor,
     this.horizontalPadding = Constants.defaultPadding,
     this.verticalPadding = Constants.defaultPadding,
-    this.radius = 4,
+    this.radius = Constants.defaultPadding,
   });
 
   Icon icon;

@@ -345,7 +345,7 @@ class _MapPageState extends State<MapPage> {
                                 onTap: ()=>_onCircleTapped(inMapStations.firstWhere((element) => element.gasStation.stationId == gasStation.stationId).gasStationCircle),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(Constants.defaultPadding),
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
@@ -358,13 +358,13 @@ class _MapPageState extends State<MapPage> {
                                   ),
                                   child: ListTile(
                                     tileColor: Colors.white,
-                                    title: Text(gasStation.stationName, style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                                    title: Text(gasStation.stationName, style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.bold),),
                                     subtitle: Text(
                                         (snapshot.connectionState == ConnectionState.waiting
                                             || snapshot.connectionState == ConnectionState.none)
                                             ? "Calculating..."
                                             : snapshot.data!,
-                                        style: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.w900)
+                                        style: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.bold)
                                     ),
                                     trailing: priceRangeWidget(priceRange, gasStation.fuel),
                                   ),
@@ -382,65 +382,6 @@ class _MapPageState extends State<MapPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CustomSearchDelegate extends SearchDelegate<String> {
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // Handle search results here
-    return Center(
-      child: Text('Search Results for: $query'),
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // Provide suggestions while the user is typing
-    // You can fetch suggestions from an API or a local list
-    final List<String> suggestions = ['Apple', 'Banana', 'Orange', 'Mango'];
-
-    final filteredSuggestions = query.isEmpty
-        ? suggestions
-        : suggestions
-        .where((suggestion) =>
-        suggestion.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-
-    return ListView.builder(
-      itemCount: filteredSuggestions.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(filteredSuggestions[index]),
-          onTap: () {
-            // You can navigate to a detail screen or perform other actions
-            // based on the selected suggestion
-            showResults(context);
-          },
-        );
-      },
     );
   }
 }
