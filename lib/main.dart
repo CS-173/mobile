@@ -40,38 +40,46 @@ class MyApp extends StatelessWidget {
         icon: Icon(CupertinoIcons.home, size: 20),
         title: ("Home"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: Constants.primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: Constants.irish2,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.wallet, size: 20),
         title: ("Wallet"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: Constants.primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: Constants.irish2,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.map, size: 25, color: Constants.primaryColor,),
+        icon: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 50,
+          child: Image.asset(
+            'lib/assets/images/Logo.png',
+            width: 40,
+            height: 40,
+          ),
+        ),
         title: ("Stations"),
         textStyle: TextStyle(fontSize: 10.0),
         activeColorPrimary: Constants.irish2,
-        activeColorSecondary: Constants.primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorSecondary: Constants.irish2,
+        inactiveColorPrimary: CupertinoColors.white,
         contentPadding: 10.0
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.gift, size: 20),
         title: ("Vouchers"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: Constants.primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: Constants.irish2,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.profile_circled, size: 20),
         title: ("Profile"),
         textStyle: TextStyle(fontSize: 10.0),
-        activeColorPrimary: Constants.primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: Constants.irish2,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
     ];
   }
@@ -93,7 +101,7 @@ class MyApp extends StatelessWidget {
         screens: _buildScreens(),
         items: _navBarsItems(),
         confineInSafeArea: true,
-        backgroundColor: Constants.bgColor, // Default is Colors.white.
+        backgroundColor: Constants.primaryColor, // Default is Colors.white.
         handleAndroidBackButtonPress: true, // Default is true.
         resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
         stateManagement: true, // Default is true.
