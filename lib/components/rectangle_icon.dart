@@ -36,3 +36,29 @@ class RectangleIcon extends StatelessWidget {
     );
   }
 }
+
+class PaymentMethodIcon extends StatelessWidget {
+  const PaymentMethodIcon({
+    super.key,
+    required this.image,
+    required this.color,
+    required this.bg
+  });
+
+  final String image;
+  final Color color;
+  final Color bg;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 40,
+      height: 30,
+      child: Center(
+        child: Image.asset(
+            image,
+        ),
+      ),
+    );
+  }
+}

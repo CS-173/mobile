@@ -16,21 +16,34 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Hi Irish Ghayle",
-                style: TextStyle(
-                    color: Constants.primaryColor,
-                    fontSize: 27,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-              Text(
-                "Nice to see you again",
-                style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500
-                ),
+              Row(
+                children: [
+                  Image.asset(
+                    'lib/assets/images/User.png',
+                    width: 50,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hi, Irish Ghayle",
+                        style: TextStyle(
+                            color: Constants.primaryColor,
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Text(
+                        "Nice to see you again",
+                        style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ],
+                  )  ,
+                ],
               ),
 
               const SizedBox(height: 10),
@@ -122,9 +135,12 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: Constants.defaultPadding),
 
               IconAndWidgetRectangle(
-                icon: Icon(Icons.shopping_basket, color: Constants.primaryColor, size: 25),
+                widget1: Image.asset(
+                  'lib/assets/images/Reward.png',
+                  width: 40,
+                ),
                 rectColor: Colors.white,
-                widget: Text(
+                widget2: Text(
                   "Use your points",
                   style: TextStyle(
                       color: Colors.grey[700],
@@ -181,9 +197,9 @@ class HomePage extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                          
+
                               const SizedBox(height: Constants.defaultPadding/4),
-                          
+
                               Text(
                                 "Open 24 hours",
                                 style: TextStyle(
@@ -192,9 +208,9 @@ class HomePage extends StatelessWidget {
                                     fontWeight: FontWeight.w400
                                 ),
                               ),
-                          
+
                               const SizedBox(height: Constants.defaultPadding/4),
-                          
+
                               Text(
                                 "5 mins • 0.8 km.",
                                 style: TextStyle(
@@ -210,20 +226,9 @@ class HomePage extends StatelessWidget {
                           padding: const EdgeInsets.only(left: Constants.defaultPadding, right: Constants.defaultPadding/2),
                           child: Column(
                             children: [
-                              Container(
-                                width: 30, // Adjust the size of the circle
-                                height: 30,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Constants.irish5, // Adjust the color of the circle
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.directions_sharp, // Choose the desired icon
-                                    color: Colors.white, // Adjust the color of the icon
-                                    size: 25, // Adjust the size of the icon
-                                  ),
-                                ),
+                              Image.asset(
+                                'lib/assets/images/Routes.png',
+                                width: 50,
                               ),
                               const SizedBox(height: 3),
                               const Text(

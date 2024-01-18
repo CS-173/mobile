@@ -30,7 +30,7 @@ class VouchersPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Constants.defaultPadding),
               child: Text(
-                "GASULIT MEMBER BENEFITS",
+                "PITSTOP MEMBER BENEFITS",
                 style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 15,
@@ -60,7 +60,7 @@ class VouchersPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Constants.defaultPadding),
               child: Text(
-                "GASULIT PLUS REWARDS",
+                "PITSTOP PLUS REWARDS",
                 style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 15,
@@ -92,7 +92,7 @@ class VouchersPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Learn about your Gasulit Plus Rewards",
+                      "Learn about your Pitstop Plus Rewards",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

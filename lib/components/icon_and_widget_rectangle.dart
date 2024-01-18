@@ -6,16 +6,16 @@ import '../style/constants.dart';
 class IconAndWidgetRectangle extends StatelessWidget {
   IconAndWidgetRectangle({
     super.key,
-    required this.icon,
-    required this.widget,
+    required this.widget1,
+    required this.widget2,
     required this.rectColor,
     this.horizontalPadding = Constants.defaultPadding,
     this.verticalPadding = Constants.defaultPadding,
     this.radius = Constants.defaultPadding,
   });
 
-  Icon icon;
-  Widget widget;
+  Widget widget1;
+  Widget widget2;
   Color rectColor;
   double horizontalPadding;
   double verticalPadding;
@@ -25,7 +25,7 @@ class IconAndWidgetRectangle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding/2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
         color: rectColor,
@@ -43,9 +43,9 @@ class IconAndWidgetRectangle extends StatelessWidget {
         children: [
           Row(
             children: [
-              icon,
+              widget1,
               SizedBox(width: horizontalPadding),
-              widget
+              widget2
             ],
           ),
         ],

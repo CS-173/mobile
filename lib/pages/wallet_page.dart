@@ -67,7 +67,7 @@ class WalletPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Gasulit Wallet',
+                                  'Pitstop Wallet',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -90,13 +90,13 @@ class WalletPage extends StatelessWidget {
 
                     IconAndWidgetRectangle(
                         radius: Constants.defaultPadding,
-                        icon: const Icon(Icons.health_and_safety_outlined, color: Colors.white, size: 25),
-                        rectColor: Constants.irish5,
-                        widget: const Column(
+                        widget1: const Icon(Icons.health_and_safety_outlined, color: Colors.white, size: 25),
+                        rectColor: Constants.irish2,
+                        widget2: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Activate your Gasulit Wallet",
+                              "Activate your Pitstop Wallet",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 13,
@@ -125,10 +125,10 @@ class WalletPage extends StatelessWidget {
                   child: Row(
                     children: [
                       IconAndWidgetRectangle(
-                        icon: Icon(Icons.account_balance_wallet_outlined, color: Constants.primaryColor, size: 25),
-                        rectColor: Constants.white,
-                        verticalPadding: Constants.defaultPadding / 2,
-                        widget: const Column(
+                        widget1: Icon(Icons.account_balance_wallet_outlined, color: Constants.white, size: 25),
+                        rectColor: Constants.irish3,
+                        verticalPadding: Constants.defaultPadding,
+                        widget2: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -136,6 +136,7 @@ class WalletPage extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
+                                color: Colors.white
                               ),
                             ),
                           ],
@@ -143,10 +144,10 @@ class WalletPage extends StatelessWidget {
                       ),
                       SizedBox(width: Constants.defaultPadding),
                       IconAndWidgetRectangle(
-                        icon: Icon(Icons.document_scanner_outlined, color: Constants.primaryColor, size: 25),
-                        rectColor: Constants.white,
-                        verticalPadding: Constants.defaultPadding / 2,
-                        widget: const Column(
+                        widget1: Icon(Icons.document_scanner_outlined, color: Constants.white, size: 25),
+                        rectColor: Constants.irish5,
+                        verticalPadding: Constants.defaultPadding,
+                        widget2: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -154,6 +155,7 @@ class WalletPage extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
+                                color: Colors.white
                               ),
                             ),
                           ],
@@ -161,10 +163,10 @@ class WalletPage extends StatelessWidget {
                       ),
                       SizedBox(width: Constants.defaultPadding),
                       IconAndWidgetRectangle(
-                        icon: Icon(Icons.move_to_inbox, color: Constants.primaryColor, size: 25),
-                        rectColor: Constants.white,
-                        verticalPadding: Constants.defaultPadding / 2,
-                        widget: const Column(
+                        widget1: Icon(Icons.move_to_inbox, color: Constants.white, size: 25),
+                        rectColor: Constants.irish4,
+                        verticalPadding: Constants.defaultPadding,
+                        widget2: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -172,6 +174,7 @@ class WalletPage extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
+                                color: Colors.white
                               ),
                             ),
                           ],
@@ -251,15 +254,14 @@ class WalletPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.only(left: Constants.defaultPadding/2, right: Constants.defaultPadding/2),
                                 child: Column(
                                   children: [
                                     Center(
-                                      child: Icon(
-                                        CupertinoIcons.gift_fill, // Choose the desired icon
-                                        color: Constants.primaryColor, // Adjust the color of the icon
-                                        size: 75, // Adjust the size of the icon
+                                      child: Image.asset(
+                                        'lib/assets/images/Gift-08.png',
+                                        width: 75,
                                       ),
                                     ),
                                   ],
@@ -288,7 +290,7 @@ class WalletPage extends StatelessWidget {
 
                     const SizedBox(height: Constants.defaultPadding),
 
-                    SquareTextWidget(text: 'Get started\nwith GasulitPay', squareColorTop: Colors.green[700]!, squareColorBottom: Colors.green[200]!, textColor: Colors.white),
+                    SquareTextWidget(text: 'Get started\nwith PitstopPay', squareColorTop: Colors.green[700]!, squareColorBottom: Colors.green[200]!, textColor: Colors.white),
 
                     const SizedBox(height: Constants.defaultPadding),
 

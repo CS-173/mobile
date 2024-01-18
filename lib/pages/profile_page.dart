@@ -34,9 +34,9 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: Constants.defaultPadding),
-              IconAndWidgetRectangle(icon: Icon(Icons.person),widget: Text("View and edit profile"), rectColor: Colors.white),
+              IconAndWidgetRectangle(widget1: Icon(Icons.person),widget2: Text("View and edit profile"), rectColor: Colors.white),
               const SizedBox(height: Constants.defaultPadding),
-              IconAndWidgetRectangle(icon: Icon(Icons.settings),widget: Text("Settings"), rectColor: Colors.white),
+              IconAndWidgetRectangle(widget1: Icon(Icons.settings),widget2: Text("Settings"), rectColor: Colors.white),
               const SizedBox(height: Constants.defaultPadding),
               Text(
                 "Payments and billing",
@@ -47,7 +47,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: Constants.defaultPadding),
-              IconAndWidgetRectangle(icon: Icon(Icons.list_outlined),widget: Text("Transactions"), rectColor: Colors.white),
+              IconAndWidgetRectangle(widget1: Icon(Icons.list_outlined),widget2: Text("Transactions"), rectColor: Colors.white),
               const SizedBox(height: Constants.defaultPadding),
               Text(
                 "Help and support",
@@ -58,9 +58,9 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: Constants.defaultPadding),
-              IconAndWidgetRectangle(icon: Icon(Icons.help),widget: Text("Help"), rectColor: Colors.white),
+              IconAndWidgetRectangle(widget1: Icon(Icons.help),widget2: Text("Help"), rectColor: Colors.white),
               const SizedBox(height: Constants.defaultPadding),
-              IconAndWidgetRectangle(icon: Icon(Icons.directions_sharp),widget: Text("App Tours"), rectColor: Colors.white),
+              IconAndWidgetRectangle(widget1: Icon(Icons.directions_sharp),widget2: Text("App Tours"), rectColor: Colors.white),
               const SizedBox(height: Constants.defaultPadding),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

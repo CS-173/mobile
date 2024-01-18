@@ -72,16 +72,9 @@ class Fuel {
   }
 }
 
-class GasStationCircle {
+class GasStationEntity {
   final GasStation gasStation;
-  final Circle gasStationCircle;
+  final Symbol gasStationEntity;
 
-  GasStationCircle({required this.gasStation, required this.gasStationCircle});
-}
-
-class WidgetAndGasStation {
-  final Widget widget;
-  final GasStation gasStation;
-
-  WidgetAndGasStation({required this.widget, required this.gasStation});
+  GasStationEntity({required this.gasStation, required this.gasStationEntity});
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -37,10 +38,10 @@ class _MapPageState extends State<MapPage> {
   bool _isLoaded = false;
 
   // for firestore
-  List<GasStationCircle> gasStations = [];
-  List<GasStationCircle> inMapStations = [];
+  List<GasStationEntity> gasStations = [];
+  List<GasStationEntity> inMapStations = [];
 
-  GasStationCircle? selectedGasStation;
+  GasStationEntity? selectedGasStation;
   bool _isTapped = false;
 
   // for min max price range
@@ -83,14 +84,10 @@ class _MapPageState extends State<MapPage> {
       setState(() {
         gasStations = snapshot.docs.map((doc) {
           GasStation gasStation = GasStation.fromFirestore(doc);
-          return GasStationCircle(gasStation: gasStation,  gasStationCircle: Circle("GasStationCircle", CircleOptions(
+          return GasStationEntity(gasStation: gasStation,  gasStationEntity: Symbol("GasStationCircle", SymbolOptions(
             geometry: LatLng(gasStation.stationLocation.latitude, gasStation.stationLocation.longitude),
-            circleColor: (gasStation.isOpen && isStoreOpen(gasStation.operatingHours))?"#D32F38":"#5555FF",
-            circleRadius: 5.0,
-            circleOpacity: 1,
-            circleStrokeColor: "#ffb300",
-            circleStrokeWidth: 2,
-            circleStrokeOpacity: 0
+            iconImage: (gasStation.isOpen && isStoreOpen(gasStation.operatingHours))?"lib/assets/images/GasStation.png":"lib/assets/images/GasStationClosed.png",
+            iconSize: 0.3,
             ))
           );
         }).toList();
@@ -105,7 +102,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void updateMap() {
-    for (GasStationCircle gasStation in gasStations) {
+    for (GasStationEntity gasStation in gasStations) {
       if (_isTapped && selectedGasStation!.gasStation.stationId == gasStation.gasStation.stationId) {
         setState(() {
           selectedGasStation = gasStation;
@@ -113,61 +110,59 @@ class _MapPageState extends State<MapPage> {
       }
 
       if (inMapStations.any((element) => element.gasStation.stationId == gasStation.gasStation.stationId)) {
-        GasStationCircle circleToUpdate = inMapStations.firstWhere((circle) => circle.gasStation.stationId == gasStation.gasStation.stationId);
+        GasStationEntity entityToUpdate = inMapStations.firstWhere((entity) => entity.gasStation.stationId == gasStation.gasStation.stationId);
 
-        _mapController.updateCircle(circleToUpdate.gasStationCircle, CircleOptions(
+        _mapController.updateSymbol(entityToUpdate.gasStationEntity, SymbolOptions(
           geometry: LatLng(gasStation.gasStation.stationLocation.latitude, gasStation.gasStation.stationLocation.longitude),
-          circleColor: (gasStation.gasStation.isOpen && isStoreOpen(gasStation.gasStation.operatingHours))?"#da002b":"#ffb300"
-          )
+          iconImage: (gasStation.gasStation.isOpen && isStoreOpen(gasStation.gasStation.operatingHours))?"lib/assets/images/GasStation.png":"lib/assets/images/GasStationClosed.png"
+          ),
         );
 
       } else {
-        _mapController.addCircle(gasStation.gasStationCircle.options).then((value) {
-          inMapStations.add(GasStationCircle(gasStation: gasStation.gasStation, gasStationCircle: value));
+        _mapController.addSymbol(gasStation.gasStationEntity.options).then((value) {
+          inMapStations.add(GasStationEntity(gasStation: gasStation.gasStation, gasStationEntity: value));
         });
       }
     }
   }
 
-  void _onCircleTapped(Circle circle) {
-    if (circle.options.circleColor != "#FFC226") {
-      // if already pressed a circle and pressed another one
-      if (_isTapped && circle != selectedGasStation!.gasStationCircle) {
-        _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 0));
+  void _onSymbolTapped(Symbol symbol) {
+    if (_isTapped && symbol != selectedGasStation!.gasStationEntity) {
+      _mapController.updateSymbol(selectedGasStation!.gasStationEntity, const SymbolOptions(iconSize: 0.3));
 
-        setState(() {
-          selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
-        });
+      setState(() {
+        selectedGasStation = inMapStations.firstWhere((element) => element.gasStationEntity == symbol);
+      });
 
-        _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
-      } else {
+      _mapController.updateSymbol(selectedGasStation!.gasStationEntity, const SymbolOptions(iconSize: 0.4));
+    } else {
 
-        setState(() {
-          _isTapped = !_isTapped;
-        });
-
-        if (_isTapped) {
-          selectedGasStation = inMapStations.firstWhere((element) => element.gasStationCircle == circle);
-          _mapController.updateCircle(selectedGasStation!.gasStationCircle, const CircleOptions(circleStrokeOpacity: 1));
-        } else {
-          _mapController.updateCircle(circle, const CircleOptions(circleStrokeOpacity: 0));
-        }
-      }
+      setState(() {
+        _isTapped = !_isTapped;
+      });
 
       if (_isTapped) {
-        _mapController.animateCamera(
+        selectedGasStation = inMapStations.firstWhere((element) => element.gasStationEntity == symbol);
+        _mapController.updateSymbol(selectedGasStation!.gasStationEntity, const SymbolOptions(iconSize: 0.4));
+      } else {
+        _mapController.updateSymbol(symbol, const SymbolOptions(iconSize: 0.3));
+      }
+    }
+
+    if (_isTapped) {
+      _mapController.animateCamera(
           CameraUpdate.newLatLngZoom(
             LatLng(selectedGasStation!.gasStation.stationLocation.latitude, selectedGasStation!.gasStation.stationLocation.longitude), 14.0,
           )
-        );
-      }
+      );
     }
   }
 
   _onMapCreated(MapboxMapController controller) {
     _mapController = controller;
-
-    _mapController.onCircleTapped.add(_onCircleTapped);
+    _mapController.onSymbolTapped.add(_onSymbolTapped);
+    _mapController.setSymbolIconAllowOverlap(true);
+    _mapController.setSymbolIconIgnorePlacement(true);
   }
 
   _onMapStyleLoaded() {
@@ -256,40 +251,166 @@ class _MapPageState extends State<MapPage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(top: Constants.defaultPadding),
-          child: Visibility(
-            visible: _isTapped,
-            child: FloatingActionButton(
-              mini: true,
-              backgroundColor: Constants.irish5,
-              shape: CircleBorder(),
-              onPressed: () async {
+          child: FloatingActionButton(
+            mini: true,
+            backgroundColor: Constants.irish5,
+            shape: CircleBorder(),
+            onPressed: () async {
+              if (_isTapped) {
                 double distance = await findAndDrawRoute();
                 double aveGasPrice = priceRangeCalculator(priceRange, selectedGasStation!.gasStation.fuel);
                 AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.success,
-                  animType: AnimType.scale,
-                  body: Padding(
-                    padding: const EdgeInsets.only(left: Constants.defaultPadding, right: Constants.defaultPadding, top: Constants.defaultPadding/8, bottom: Constants.defaultPadding),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Best Route found!',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 20
-                          ),
-                        ),
-                        SizedBox(height: Constants.defaultPadding),
-                        Text("Estimated fuel cost to get there: ₱${((distance*aveGasPrice)/(16.1*1000)).toStringAsFixed(2)}"),
-                      ],
+                    context: context,
+                    dialogType: DialogType.noHeader,
+                    animType: AnimType.scale,
+                    borderSide: BorderSide(
+                        color: Constants.irish2,
+                        width: 5
                     ),
-                  )
+                    body: Padding(
+                      padding: const EdgeInsets.only(left: Constants.defaultPadding/2, right: Constants.defaultPadding/2, bottom: Constants.defaultPadding*1.2),
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'lib/assets/images/Map-04.png',
+                              width: 50,
+                            ),
+                            SizedBox(width: Constants.defaultPadding),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'BEST ROUTE FOUND!',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Constants.irish3,
+                                  ),
+                                ),
+                                Text(
+                                  "Estimated fuel cost: ₱${((distance*aveGasPrice)/(16.1*1000)).toStringAsFixed(2)}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                 )..show();
-              },
-              child: Icon(Icons.directions_sharp, color: Colors.white,),
-            ),
-          ),
+              } else {
+                TextEditingController _fuelConsumptionController = TextEditingController();
+                String _selectedFuelType = 'Diesel';
+                String _selectedSortBy = 'Nearest';
+
+                AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.noHeader,
+                    animType: AnimType.scale,
+                    borderSide: BorderSide(
+                        color: Constants.irish2,
+                        width: 5
+                    ),
+                    btnOkColor: Colors.grey,
+                    btnOkText: "Save",
+                    btnOkIcon: Icons.save,
+                    btnOkOnPress: (){},
+                    body: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Average Fuel Consumption (KM/L)',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 10),
+                          TextField(
+                            controller: _fuelConsumptionController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: 'Enter fuel consumption',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Fuel Type',
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 10),
+                                  DropdownButton<String>(
+                                    value: _selectedFuelType,
+                                    onChanged: (String? newValue) {
+
+                                      _selectedFuelType = newValue!;
+
+                                    },
+                                    items: ['Diesel', 'Gasoline', 'Electric (upcoming)']
+                                        .map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                        onTap: () {
+                                          // Disable selection for 'Electric (upcoming)'
+                                          if (value == 'Electric (upcoming)') {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text('Electric is an upcoming feature'),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
+                              ),
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sort by',
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 10),
+                                  DropdownButton<String>(
+                                    value: _selectedSortBy,
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedSortBy = newValue!;
+                                      });
+                                    },
+                                    items: ['Nearest', 'Cheapest']
+                                        .map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                )..show();
+              }
+            },
+            child: _isTapped?const Icon(Icons.directions_sharp, color: Colors.white,):const Icon(Icons.filter_list_outlined, color: Colors.white),
+          )
         ),
         body: Column(
           children: [
@@ -307,6 +428,7 @@ class _MapPageState extends State<MapPage> {
                     onStyleLoadedCallback: _onMapStyleLoaded,
                     rotateGesturesEnabled: false,
                     tiltGesturesEnabled: false,
+
                   ),
 
                   if(!_isLoaded)
@@ -342,7 +464,7 @@ class _MapPageState extends State<MapPage> {
                             future: calculateDistance(currentLocation! , gasStation.stationLocation),
                             builder: (context, snapshot) {
                               return GestureDetector(
-                                onTap: ()=>_onCircleTapped(inMapStations.firstWhere((element) => element.gasStation.stationId == gasStation.stationId).gasStationCircle),
+                                onTap: ()=>_onSymbolTapped(inMapStations.firstWhere((element) => element.gasStation.stationId == gasStation.stationId).gasStationEntity),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(Constants.defaultPadding),

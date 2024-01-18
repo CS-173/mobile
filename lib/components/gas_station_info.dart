@@ -79,7 +79,7 @@ class FuelList extends StatelessWidget {
             ),
             child: ListTile(
               title: Text(fuel.fuelName, style: TextStyle(color: Colors.grey[700]),),
-              subtitle: Text('₱${fuel.fuelPrice.toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w900)),
+              subtitle: Text('₱${fuel.fuelPrice.toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.bold)),
               trailing: fuel.fuelAvailable ? const Icon(Icons.check_circle, color: Colors.green) : const Icon(Icons.cancel, color: Colors.red),
               // Add more widgets as needed for additional information
             ),
